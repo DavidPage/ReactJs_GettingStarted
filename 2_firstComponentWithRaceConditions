@@ -9,9 +9,15 @@ class Button extends React.Component{
   //modern syntax
   handleClick = () => {
     //this == component instance
-    this.setState({
-    	counter: this.state.counter + 1;
+    this.setState((previousState) => ({
+    	counter: previousState.counter + 1
     })
+
+    // race conditions might happen just by setting the value like this
+    //{
+    //	counter: this.state.counter + 1
+    //}
+    )
   };
 
   render(){

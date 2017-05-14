@@ -1,0 +1,64 @@
+class Button extends React.Component{
+
+  //modern syntax
+  //handleClick = () => {
+   // //this == component instance
+    //this.setState((previousState) => ({
+    //	counter: previousState.counter + 1
+    //})
+
+    // race conditions might happen just by setting the value like this
+    //{
+    //	counter: this.state.counter + 1
+    //}
+    //)
+  //};
+
+  //new handleClick
+
+  handleClick = () => {
+  	this.props.onClickFunction(this.props.incrementValue);
+  };
+
+	render(){
+    return(
+      <button onClick={this.handleClick}>
+        +{this.props.incrementValue}
+      </button>
+    );
+  }
+}
+  // since we are only displaying information (data)
+  const Result = (props) => {
+  	return (
+    	<div>{props.counter}</div>
+    );
+  };
+
+// A react component can only return one component, hence the wrapping div
+class App extends React.Component{
+
+  state = {
+	  counter: 0
+  };
+
+  incrementCounter = (incrementValue) => {
+  	this.setState((previousState) => ({
+    	counter: previousState.counter + incrementValue
+    }));
+  };
+
+	render(){
+  	return(
+    <div>
+      <Button incrementValue={1} onClickFunction={this.incrementCounter}/>
+      <Button incrementValue={5} onClickFunction={this.incrementCounter}/>
+      <Button incrementValue={10} onClickFunction={this.incrementCounter}/>
+      <Button incrementValue={100} onClickFunction={this.incrementCounter}/>
+      <Result counter={this.state.counter}/>
+    </div>
+    );
+  }
+} //App
+
+ReactDOM.render(<App />, mountNode);
