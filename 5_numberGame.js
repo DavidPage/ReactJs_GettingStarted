@@ -5,15 +5,10 @@ const Stars = (props) => {
 
   let stars = [];
 
-  for(let i=0;i<numberOfStars;i++){
-    stars.push(
-      <i key={i} className="fa fa-star" />
-    );
-  }
 
   return(
     <div className="col-5">
-      {stars}
+      {_.range(numberOfStars).map(i =>   <i key={i} className="fa fa-star" />)}
     </div>
   );
 }
@@ -35,22 +30,30 @@ const Answer = (props) => {
 }
 
 const Numbers = (props) => {
+
+  //lodash library to generate this array
+  //  const arrayOfNumbers = _.range(1,10);
+
   return(
     <div className="card text-center">
       <div>
-        <span>1</span>
-        <span className="selected">2</span>
-        <span className="used">3</span>
-        <span>4</span>
-        <span>5</span>
-        <span>6</span>
-        <span>7</span>
-        <span>8</span>
-        <span>9</span>
-      </div>
+        {
+          Numbers.list.map((number, i) =>
+          <span key={i}>
+            {number}
+          </span>
+        )
+      }
     </div>
-  );
+  </div>
+);
 }
+
+//In order to avoid this array to be generated everysingle time a Numbers
+//component is rendered, we should bring it outside the component and then
+//access it from the components that might use it
+Numbers.list = _.range(1,10);
+
 
 class Game extends React.Component{
   render (){
